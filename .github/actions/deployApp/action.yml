@@ -2,11 +2,14 @@ name: App Deployment
 
 inputs:
   azureWebAppName:
-    description: 'The name of the Web App to deploy to'
+    description: "The name of the Web App to deploy to"
     required: true
+    default: ''
+
   webAppPackagePath:
-    description: 'Set this to the path to your web app project, defaults to the repository root'
+    description: "Set this to the path to your web app project, defaults to the repository root"
     required: true
+    default: ''
 
 runs:
   using: 'composite'
