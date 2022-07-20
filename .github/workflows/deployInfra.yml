@@ -1,7 +1,7 @@
 on: [push]
 name: Azure ARM
 jobs:
-  build-and-deploy:
+  build-and-deploy-bicep:
     runs-on: ubuntu-latest
     steps:
 
@@ -20,5 +20,5 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./IaC-Demo/infra.bicep
-        parameters: 'storagePrefix=mystore storageSKU=Standard_LRS'
+        parameters: ''
         failOnStdErr: false
