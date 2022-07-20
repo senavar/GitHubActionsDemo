@@ -7,12 +7,6 @@ inputs:
   webAppPackagePath:
     description: 'Set this to the path to your web app project, defaults to the repository root'
     required: true
-  dotNetVersion:
-    description: 'Set this to the dot net version to use'
-    required: false
-  creds:
-    description: 'Credentials to log in to Azure'
-    required: true
 
 runs:
   using: 'composite'
@@ -20,13 +14,13 @@ runs:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ inputs.creds }} 
+        creds: ${{ env.creds }} 
     
     # Setup .NET Core SDK
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{ inputs.dotNetVersion }} 
+        dotnet-version: ${{ env.dotNetVersion }} 
     
     # Run dotnet build and publish
     - name: dotnet build and publish
