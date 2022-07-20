@@ -22,20 +22,20 @@ runs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{ input.dotNetVersion }} 
+        dotnet-version: ${{ inputs.dotNetVersion }} 
     # Run dotnet build and publish
     - name: dotnet build and publish
       run: |
         dotnet restore
         dotnet build --configuration Release
-        dotnet publish -c Release -o '${{ input.webAppPackagePath }}' 
+        dotnet publish -c Release -o '${{ inputs.webAppPackagePath }}' 
         
     # Deploy to Azure Web apps
     - name: 'Run Azure webapp deploy action using publish profile credentials'
       uses: azure/webapps-deploy@v2
       with: 
-        app-name: ${{ input.azureWebAppName }} # Replace with your app name
-        package: '${{ input.webAppPackagePath }}'
+        app-name: ${{ inputs.azureWebAppName }} # Replace with your app name
+        package: '${{ inputs.webAppPackagePath }}'
     - name: logout
       run: |
         az logout
