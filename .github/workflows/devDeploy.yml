@@ -11,7 +11,7 @@ on:
 env:
   resourceGroupName: 'AzureDevOpsLab'
   subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION}}
-  dotNetVersion:
+  dotNetVersion: '2.1.x'
 
 jobs:
   job_deploy_infrastructure:
