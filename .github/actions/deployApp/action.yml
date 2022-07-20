@@ -10,6 +10,9 @@ inputs:
   dotNetVersion:
     description: 'Set this to the dot net version to use'
     required: false
+  creds:
+    description: 'Credentials to log in to Azure'
+    required: true
 
 runs:
   using: 'composite'
@@ -17,7 +20,7 @@ runs:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: ${{ inputs.creds }} 
     
     # Setup .NET Core SDK
     - name: Setup .NET Core

@@ -10,8 +10,9 @@ on:
 
 env:
   resourceGroupName: 'AzureDevOpsLab'
-  subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION}}
+  subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
   dotNetVersion: '2.1.x'
+  creds: ${{ secrets.AZURE_CREDENTIALS }}
 
 jobs:
   job_deploy_infrastructure:
@@ -23,8 +24,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: 'Deploy Bicep File'
-        uses: ./.github/actions/deployApp
+        uses: ./.github/actions/deployInfra
         with:
+          creds: '${{ env.creds }}'
           resourceGroupName: '${{ env.resourceGroupName }}'
           subscriptionId: '${{ env.subscriptionId }}'
           customParameters: '${{ env.customParameters }}'
@@ -42,6 +44,7 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
         with:
+          creds: '${{ env.creds }}'
           azureWebAppName: 'web-votingapi-NavarApp-dev'
           webAppPackagePath: './App-Demo/src/VotingData'
           dotNetVersion: '${{ env.dotNetVersion }}'
@@ -59,6 +62,7 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
         with:
+          creds: '${{ env.creds }}'
           azureWebAppName: 'web-NavarApp-dev'
           webAppPackagePath: './App-Demo/src/VotingWeb'
           dotNetVersion: '${{ env.dotNetVersion }}'
