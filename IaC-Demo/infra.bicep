@@ -5,9 +5,10 @@ param location string = resourceGroup().location
   'dev'
   'prod'
 ])
-param env string
+param env string = 'dev'
 
 var votingApi_Name = 'web-votingapi-${votingWebAppName}-${env}'
+var votingWeb_Name = 'web-${votingWebAppName}-${env}'
 var votingRedisCache_Name = 'redis-voting-${votingWebAppName}-${env}'
 var votingApiPlan_Name = 'plan-votingapi-${votingWebAppName}-${env}'
 var votingWebPlan_Name = 'plan-votingweb-${votingWebAppName}-${env}'
@@ -347,7 +348,7 @@ resource votingApi 'Microsoft.Web/sites@2022-03-01' = {
 }
 
 resource votingWeb 'Microsoft.Web/sites@2022-03-01' = {
-  name: votingWebAppName
+  name: votingWeb_Name
   location: location
   kind: 'app'
   identity: {
@@ -357,12 +358,12 @@ resource votingWeb 'Microsoft.Web/sites@2022-03-01' = {
     enabled: true
     hostNameSslStates: [
       {
-        name: '${votingWebAppName}-${env}.azurewebsites.net'
+        name: '${votingWeb_Name}.azurewebsites.net'
         sslState: 'Disabled'
         hostType: 'Standard'
       }
       {
-        name: '${votingWebAppName}-${env}.scm.azurewebsites.net'
+        name: '${votingWeb_Name}.scm.azurewebsites.net'
         sslState: 'Disabled'
         hostType: 'Repository'
       }
@@ -462,13 +463,13 @@ resource frontDoor 'Microsoft.Network/frontDoors@2020-05-01' = {
         properties: {
           backends: [
             {
-              address: '${votingWebAppName}-${env}.azurewebsites.net'
+              address: '${votingWeb_Name}.azurewebsites.net'
               enabledState: 'Enabled'
               httpPort: 80
               httpsPort: 443
               priority: 1
               weight: 50
-              backendHostHeader: '${votingWebAppName}-${env}.azurewebsites.net'
+              backendHostHeader: '${votingWeb_Name}.azurewebsites.net'
             }
           ]
           healthProbeSettings: {

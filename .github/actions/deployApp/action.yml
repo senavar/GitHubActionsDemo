@@ -1,0 +1,41 @@
+name: App Deployment
+
+inputs:
+  azureWebAppName:
+    description: 'The name of the Web App to deploy to'
+    required: true
+  webAppPackagePath:
+    description: 'Set this to the path to your web app project, defaults to the repository root'
+    required: true
+  dotNetVersion:
+    description: 'Set this to the dot net version to use'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    # Setup .NET Core SDK
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ input.dotNetVersion }} 
+    # Run dotnet build and publish
+    - name: dotnet build and publish
+      run: |
+        dotnet restore
+        dotnet build --configuration Release
+        dotnet publish -c Release -o '${{ input.webAppPackagePath }}' 
+        
+    # Deploy to Azure Web apps
+    - name: 'Run Azure webapp deploy action using publish profile credentials'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ input.azureWebAppName }} # Replace with your app name
+        package: '${{ input.webAppPackagePath }}'
+    - name: logout
+      run: |
+        az logout

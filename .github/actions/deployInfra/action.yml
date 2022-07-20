@@ -1,0 +1,31 @@
+name: Azure Bicep Infrastructure Deployment
+
+inputs:
+  resourceGroupName:
+    description: 'The resource group to deploy to'
+    required: true
+  subscriptionId:
+    description: 'The subscriptionId to deploy to'
+    required: true
+  customParameters:
+    description: 'Additional parameter file input  pairs in string format. e.g. 'storagePrefix=mystore storageSKU=Standard_LRS'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+      # Log into Azure
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Deploy Bicep file
+    - name: deploy
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ inputs.subscriptionId }}
+        resourceGroupName: ${{ inputs.resourceGroupName }}
+        template: ./IaC-Demo/infra.bicep
+        parameters: ${{ inputs.customParameters }}
+        failOnStdErr: false
