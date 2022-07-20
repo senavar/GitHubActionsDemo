@@ -9,8 +9,8 @@ on:
   workflow_dispatch:
 
 env:
-  resourceGroupName:
-  subscriptionId:
+  resourceGroupName: 'AzureDevOpsLab'
+  subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION}}
   dotNetVersion:
 
 jobs:
