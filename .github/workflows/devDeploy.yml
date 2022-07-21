@@ -42,7 +42,7 @@ jobs:
         uses: ./.github/actions/deployApp
         with:
           azureWebAppName: 'web-votingapi-NavarApp-dev'
-          webAppPackagePath: 'App-Demo/src/VotingData'
+          webAppPackagePath: '.\App-Demo\src\VotingData'
 
   job_deploy_webapp:
     runs-on: windows-latest
@@ -58,4 +58,4 @@ jobs:
         uses: ./.github/actions/deployApp
         with:
           azureWebAppName: 'web-NavarApp-dev'
-          webAppPackagePath: 'App-Demo/src/VotingWeb'
+          webAppPackagePath: '.\App-Demo\src\VotingWeb'
