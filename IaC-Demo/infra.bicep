@@ -38,6 +38,7 @@ resource redisCache 'Microsoft.Cache/redis@2021-06-01' = {
 
 resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts@2022-05-15' = {
   name: databaseAccounts_VotingCosmos_Name
+  location: location
   kind: 'GlobalDocumentDB'
   properties: {
     createMode: 'Default'
@@ -164,8 +165,8 @@ resource sqlServer 'Microsoft.Sql/servers@2021-11-01-preview' = {
   name: sqlServer_Name
   location: location
   properties: {
-    administratorLogin: ''
-    administratorLoginPassword: ''
+    administratorLogin: 'ChechoAdmin'
+    administratorLoginPassword: 'Azure1234!@#$'
     minimalTlsVersion: '1.2'
     publicNetworkAccess: 'Enabled'
     restrictOutboundNetworkAccess: 'Disabled'
@@ -450,7 +451,7 @@ resource frontDoor 'Microsoft.Network/frontDoors@2020-05-01' = {
       {
         name: 'default'
         properties: {
-          hostName: 'NavarVotingApp.azurefd.net'
+          hostName: '${frontdoors_VotingFrontDoor_name}.azurefd.net'
           sessionAffinityEnabledState: 'Disabled'
           sessionAffinityTtlSeconds: 0
         }
