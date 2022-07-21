@@ -41,7 +41,7 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
         with:
-          azureWebAppName: 'web-votingapi-NavarApp-dev'
+          azureWebAppName: 'web-votingapi-SergioApp-dev'
           webAppSourcePath: '.\App-Demo\src\VotingData'
 
   job_deploy_webapp:
@@ -57,7 +57,7 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
         with:
-          azureWebAppName: 'web-NavarApp-dev'
+          azureWebAppName: 'web-SergioApp-dev'
           webAppSourcePath: '.\App-Demo\src\VotingWeb'
 
   job_deploy_function:
@@ -73,5 +73,5 @@ jobs:
       - name: 'Deploy Function to Azure Web App Plan'
         uses: ./.github/actions/deployApp
         with:
-          azureWebAppName: 'func-votecounter-NavarApp-dev'
+          azureWebAppName: 'func-votecounter-SergioApp-dev'
           webAppSourcePath: '.\App-Demo\src\FunctionApp'
