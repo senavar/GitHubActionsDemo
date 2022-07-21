@@ -4,7 +4,7 @@ inputs:
   customParameters:
     description: "Additional parameter file input  pairs in string format. e.g. 'storagePrefix=mystore storageSKU=Standard_LRS"
     required: false
-    default: 'votingWebAppName=SergioApp'
+    default: ''
 
 runs:
   using: 'composite'
