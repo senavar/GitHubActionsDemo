@@ -17,7 +17,7 @@ var sqlServer_Name = 'sql-voting-${votingWebAppName}-${env}'
 var sqlDatabase_Name = 'sqldb-voting-${votingWebAppName}-${env}'
 var serviceBusVotings_Name = 'sb-voting-${votingWebAppName}-${env}'
 var functionVoteCounterPlan_Name = 'plan-func-votecounter-${votingWebAppName}-${env}'
-var databaseAccounts_VotingCosmos_Name = toLower('cosmos-voting-${env}')
+var databaseAccounts_VotingCosmos_Name = toLower('cosmos-voting-${votingWebAppName}-${env}')
 var functionStorageAccount = toLower('stfn${votingWebAppName}${env}')
 var frontdoors_VotingFrontDoor_name = 'fd-voting-${votingWebAppName}-${env}'
 
