@@ -59,3 +59,19 @@ jobs:
         with:
           azureWebAppName: 'web-NavarApp-dev'
           webAppSourcePath: '.\App-Demo\src\VotingWeb'
+
+  job_deploy_function:
+    runs-on: windows-latest
+    name: 'Deploy Azure Function'
+    needs: 
+      - job_deploy_infrastructure
+    steps: 
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: 'Deploy Function to Azure Web App Plan'
+        uses: ./.github/actions/deployApp
+        with:
+          azureWebAppName: 'func-votecounter-NavarApp-dev'
+          webAppSourcePath: '.\App-Demo\src\FunctionApp'
