@@ -18,7 +18,7 @@ var sqlDatabase_Name = 'sqldb-voting-${votingWebAppName}-${env}'
 var serviceBusVotings_Name = 'sb-voting-${votingWebAppName}-${env}'
 var functionVoteCounterPlan_Name = 'plan-func-votecounter-${votingWebAppName}-${env}'
 var databaseAccounts_VotingCosmos_Name = 'cosmos-voting-${votingWebAppName}-${env}'
-var functionStorageAccount = 'stfn-${votingWebAppName}-${env}'
+var functionStorageAccount = 'stfn${votingWebAppName}${env}'
 var frontdoors_VotingFrontDoor_name = 'fd-voting-${votingWebAppName}-${env}'
 
 resource redisCache 'Microsoft.Cache/redis@2021-06-01' = {
@@ -136,7 +136,6 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-09-01' = {
   location: location
   sku: {
     name: 'Standard_LRS'
-    tier: 'Standard'
   }
   kind: 'StorageV2'
   properties: {
