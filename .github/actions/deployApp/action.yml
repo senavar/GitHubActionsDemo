@@ -8,8 +8,13 @@ inputs:
 
   webAppPackagePath:
     description: "Set this to the path to your web app project, defaults to the repository root"
-    required: true
-    default: ''
+    required: false
+    default: '.'
+
+  webAppSourcePath:
+    description: "Set this to the source path of your web app project, defaults to the repository root"
+    required: false
+    default: '.'
 
 runs:
   using: 'composite'
@@ -29,12 +34,14 @@ runs:
     - name: dotnet build and publish
       shell: bash
       run: |
+        cd '${{ inputs.webAppSourcePath }}'
+        ls
         dotnet restore
         dotnet build --configuration Release
         dotnet publish -c Release -o '${{ inputs.webAppPackagePath }}' 
         
     # Deploy to Azure Web apps
-    - name: 'Run Azure webapp deploy action using publish profile credentials'
+    - name: 'Run Azure webapp deploy action'
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ inputs.azureWebAppName }} # Replace with your app name
