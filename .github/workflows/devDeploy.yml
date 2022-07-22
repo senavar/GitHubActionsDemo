@@ -57,7 +57,7 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
         with:
-          azureWebAppName: 'webapp-118593132'
+          azureWebAppName: 'webapp-592199275'
           webAppSourcePath: '.\App-Demo\src\VotingWeb'
 
   job_deploy_function:
