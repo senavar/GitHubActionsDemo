@@ -38,14 +38,14 @@ runs:
         ls
         dotnet restore
         dotnet build --configuration Release
-        dotnet publish -c Release -o '${{ inputs.webAppPackagePath }}' 
+        dotnet publish -c Release -o '.\${{ inputs.azureWebAppName }}' 
         
     # Deploy to Azure Web apps
     - name: 'Run Azure webapp deploy action'
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ inputs.azureWebAppName }} # Replace with your app name
-        package: '${{ inputs.webAppPackagePath }}'
+        package: '.\${{ inputs.azureWebAppName }}'
     
     - name: logout
       shell: bash
