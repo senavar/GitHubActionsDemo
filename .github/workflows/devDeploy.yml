@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  resourceGroupName: 'AzureDevOpsLab'
+  resourceGroupName: 'rg-webapp-infras'
   subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
   dotNetVersion: '3.1.x'
   creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -41,7 +41,7 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
         with:
-          azureWebAppName: 'web-votingapi-SergioApp-dev'
+          azureWebAppName: 'web-votingapi-2xf7pjkzgmtkw'
           webAppSourcePath: '.\App-Demo\src\VotingData'
 
   job_deploy_webapp:
@@ -57,7 +57,7 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
         with:
-          azureWebAppName: 'web-SergioApp-dev'
+          azureWebAppName: 'webapp-118593132'
           webAppSourcePath: '.\App-Demo\src\VotingWeb'
 
   job_deploy_function:
@@ -73,5 +73,5 @@ jobs:
       - name: 'Deploy Function to Azure Web App Plan'
         uses: ./.github/actions/deployApp
         with:
-          azureWebAppName: 'func-votecounter-SergioApp-dev'
+          azureWebAppName: 'func-votecounter-2xf7pjkzgmtkw'
           webAppSourcePath: '.\App-Demo\src\FunctionApp'
