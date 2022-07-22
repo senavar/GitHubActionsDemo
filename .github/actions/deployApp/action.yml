@@ -38,7 +38,7 @@ runs:
         ls
         dotnet restore
         dotnet build --configuration Release
-        dotnet publish -c Release -o '.\${{ inputs.azureWebAppName }}' 
+        dotnet publish -c Release -o '..\..\..\${{ inputs.azureWebAppName }}' 
         
     # Deploy to Azure Web apps
     - name: 'Run Azure webapp deploy action'
