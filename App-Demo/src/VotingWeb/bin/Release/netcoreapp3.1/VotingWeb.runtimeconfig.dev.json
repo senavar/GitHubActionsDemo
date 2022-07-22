@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\senavar\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\senavar\\.nuget\\packages"
+    ]
+  }
+}
