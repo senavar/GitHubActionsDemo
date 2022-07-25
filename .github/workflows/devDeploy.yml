@@ -63,7 +63,7 @@ jobs:
   job_deploy_function:
     runs-on: windows-latest
     name: 'Deploy Azure Function'
-   needs: 
+    needs: 
       - job_deploy_infrastructure
     steps: 
       - name: 'Checkout'
