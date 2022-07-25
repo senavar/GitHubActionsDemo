@@ -9,30 +9,30 @@ on:
   workflow_dispatch:
 
 env:
-  resourceGroupName: 'rg-webapp-infras'
+  resourceGroupName: 'AzureDevOpsLab'
   subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
   dotNetVersion: '3.1.x'
   creds: ${{ secrets.AZURE_CREDENTIALS }}
 
 jobs:
-  #job_deploy_infrastructure:
-  #  runs-on: windows-latest
-  #  name: 'Deploy Azure Infrastructure'
-  #  steps: 
-  #    - name: 'Checkout'
-  #      uses: actions/checkout@v2
-  #      with:
-  #        fetch-depth: 0
-  #    - name: 'Deploy Bicep File'
-  #      uses: ./.github/actions/deployInfra
-  #      with:
-  #        customParameters: 'votingWebAppName=SergioApp'
+  job_deploy_infrastructure:
+    runs-on: windows-latest
+    name: 'Deploy Azure Infrastructure'
+    steps: 
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: 'Deploy Bicep File'
+        uses: ./.github/actions/deployInfra
+        with:
+          customParameters: 'votingWebAppName=SergioApp'
 
   job_deploy_webapi:
     runs-on: windows-latest
     name: 'Deploy Web Api'
-    #needs: 
-    #  - job_deploy_infrastructure
+    needs: 
+      - job_deploy_infrastructure
     steps: 
       - name: 'Checkout'
         uses: actions/checkout@v2
@@ -41,14 +41,14 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
         with:
-          azureWebAppName: 'web-votingapi-2xf7pjkzgmtkw'
+          azureWebAppName: 'web-votingapi-SergioApp-dev'
           webAppSourcePath: '.\App-Demo\src\VotingData'
 
   job_deploy_webapp:
     runs-on: windows-latest
     name: 'Deploy Web App'
-   # needs: 
-   #   - job_deploy_infrastructure
+    needs: 
+      - job_deploy_infrastructure
     steps: 
       - name: 'Checkout'
         uses: actions/checkout@v2
@@ -57,14 +57,14 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
         with:
-          azureWebAppName: 'webapp-592199275'
+          azureWebAppName: 'web-SergioApp-dev'
           webAppSourcePath: '.\App-Demo\src\VotingWeb'
 
   job_deploy_function:
     runs-on: windows-latest
     name: 'Deploy Azure Function'
-  # needs: 
-  #    - job_deploy_infrastructure
+   needs: 
+      - job_deploy_infrastructure
     steps: 
       - name: 'Checkout'
         uses: actions/checkout@v2
@@ -73,5 +73,5 @@ jobs:
       - name: 'Deploy Function to Azure Web App Plan'
         uses: ./.github/actions/deployApp
         with:
-          azureWebAppName: 'func-votecounter-2xf7pjkzgmtkw'
+          azureWebAppName: 'func-votecounter-SergioApp-dev'
           webAppSourcePath: '.\App-Demo\src\FunctionApp'
