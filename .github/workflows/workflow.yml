@@ -22,11 +22,10 @@ jobs:
           fetch-depth: 0
       - name: 'Deploy Bicep File'
         uses: ./.github/actions/deployInfra
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-          AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION }}
         with:
           customParameters: 'votingWebAppName=SergioApp env=${{ inputs.environment }}'
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION }}
 
 
   job_deploy_webapi:

@@ -16,13 +16,17 @@ inputs:
     required: false
     default: '.'
 
+  AZURE_CREDENTIALS:
+    description: "Set this to the source path of your web app project, defaults to the repository root"
+    required: true 
+
 runs:
   using: 'composite'
   steps:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ env.AZURE_CREDENTIALS }} 
+        creds: ${{ inputs.AZURE_CREDENTIALS }} 
     
     # Setup .NET Core SDK
     - name: Setup .NET Core

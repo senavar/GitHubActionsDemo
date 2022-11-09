@@ -5,28 +5,27 @@ inputs:
     description: "Additional parameter file input  pairs in string format. e.g. 'storagePrefix=mystore storageSKU=Standard_LRS"
     required: false
     default: ''
+  AZURE_CREDENTIALS:
+    description: "Credentials to deploy app"
+    required: true 
+  AZURE_SUBSCRIPTION:
+    description: "Subscription to deploy app"
+    required: true 
 
 runs:
   using: 'composite'
   steps:
       # Log into Azure
-    
-    - name: Output Secret
-      shell: bash
-      run: |
-        echo "${{ env.AZURE_CREDENTIALS }}"
-    
-    
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ env.AZURE_CREDENTIALS }} 
+        creds: ${{ inputs.AZURE_CREDENTIALS }} 
 
       # Deploy Bicep file
     - name: deploy
       uses: azure/arm-deploy@v1
       with:
-        subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
+        subscriptionId: ${{ inputs.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ env.resourceGroupName }}
         template: ./IaC-Demo/infra.bicep
         parameters: ${{ inputs.customParameters }}
