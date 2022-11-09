@@ -14,13 +14,13 @@ runs:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ env.creds }} 
+        creds: ${{ secret.AZURE_CREDENTIALS }} 
 
       # Deploy Bicep file
     - name: deploy
       uses: azure/arm-deploy@v1
       with:
-        subscriptionId: ${{ env.subscriptionId }}
+        subscriptionId: ${{ secret.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ env.resourceGroupName }}
         template: ./IaC-Demo/infra.bicep
         parameters: ${{ inputs.customParameters }}

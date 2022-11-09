@@ -22,7 +22,7 @@ runs:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ env.creds }} 
+        creds: ${{ secret.AZURE_CREDENTIALS }} 
     
     # Setup .NET Core SDK
     - name: Setup .NET Core
