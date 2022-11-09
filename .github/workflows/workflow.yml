@@ -29,8 +29,6 @@ jobs:
       webAppSourcePath: '.\App-Demo\src\VotingData'
     secrets: inherit
 
-
-
   job_deploy_webapp:
     environment: ${{ inputs.environment }}
     needs: 
