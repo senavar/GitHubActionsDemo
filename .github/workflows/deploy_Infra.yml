@@ -1,0 +1,34 @@
+name:  'Reusable workflow to deploy App'
+
+on: 
+  workflow_call:
+    inputs:
+      customParameters:
+        required: true
+        type: string
+
+jobs:
+
+  job_deploy_infra:
+    runs-on: windows-latest
+    name: 'Deploy Infra'
+    steps: 
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }} 
+
+        # Deploy Bicep file
+      - name: deploy
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ env.resourceGroupName }}
+          template: ./IaC-Demo/infra.bicep
+          parameters: ${{ inputs.customParameters }}
+          failOnStdErr: false

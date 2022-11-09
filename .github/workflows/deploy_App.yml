@@ -1,0 +1,62 @@
+name:  'Reusable workflow to deploy App'
+
+on: 
+  workflow_call:
+    inputs:
+      azureWebAppName:
+        required: true
+        type: string
+      webAppSourcePath:
+        required: true
+        type: string
+      
+env:
+  resourceGroupName: 'GitHubTestRG'
+  dotNetVersion: '3.1.x'
+
+jobs:
+
+  job_deploy_webapi:
+    runs-on: windows-latest
+    environment: ${{ inputs.environment }}
+    name: 'Deploy Web Api'
+    needs: 
+      - job_deploy_infrastructure
+    steps: 
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ env.AZURE_CREDENTIALS }} 
+    
+      # Setup .NET Core SDK
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.dotNetVersion }} 
+      
+      # Run dotnet build and publish
+      - name: dotnet build and publish
+        shell: bash
+        run: |
+          cd '${{ inputs.webAppSourcePath }}'
+          ls
+          dotnet restore
+          dotnet build --configuration Release
+          dotnet publish -c Release -o '..\..\..\${{ inputs.azureWebAppName }}' 
+          
+      # Deploy to Azure Web apps
+      - name: 'Run Azure webapp deploy action'
+        uses: azure/webapps-deploy@v2
+        with: 
+          app-name: ${{ inputs.azureWebAppName }} # Replace with your app name
+          package: '.\${{ inputs.azureWebAppName }}'
+      
+      - name: logout
+        shell: bash
+        run: |
+          az logout

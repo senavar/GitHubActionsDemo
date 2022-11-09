@@ -19,7 +19,7 @@ runs:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ inputs.AZURE_CREDENTIALS }} 
+        creds: ${{ env.AZURE_CREDENTIALS }} 
 
       # Deploy Bicep file
     - name: deploy

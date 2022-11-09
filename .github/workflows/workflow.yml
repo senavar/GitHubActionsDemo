@@ -12,8 +12,7 @@ env:
 
 jobs:
   job_deploy_infrastructure:
-    runs-on: windows-latest
-    environment: Dev
+    environment: ${{ inputs.environment }}
     name: 'Deploy Azure Infrastructure'
     steps: 
       - name: 'Checkout'
@@ -21,15 +20,13 @@ jobs:
         with:
           fetch-depth: 0
       - name: 'Deploy Bicep File'
-        uses: ./.github/actions/deployInfra
+        uses: ./.github/workflows/deploy_Infra.yml
         with:
           customParameters: 'votingWebAppName=SergioApp env=${{ inputs.environment }}'
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-          AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION }}
+        secrets: inherit
 
 
   job_deploy_webapi:
-    runs-on: windows-latest
     environment: ${{ inputs.environment }}
     name: 'Deploy Web Api'
     needs: 
@@ -40,17 +37,15 @@ jobs:
         with:
           fetch-depth: 0
       - name: 'Deploy to Azure Web App'
-        uses: ./.github/actions/deployApp
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+        uses: ./.github/workflows/deploy_App.yml
         with:
           azureWebAppName: 'web-votingapi-SergioApp-${{ inputs.environment }}'
           webAppSourcePath: '.\App-Demo\src\VotingData'
+        secrets: inherit
 
 
 
   job_deploy_webapp:
-    runs-on: windows-latest
     environment: ${{ inputs.environment }}
     name: 'Deploy Web App'
     needs: 
@@ -61,15 +56,13 @@ jobs:
         with:
           fetch-depth: 0
       - name: 'Deploy to Azure Web App'
-        uses: ./.github/actions/deployApp
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+        uses: ./.github/workflows/deploy_App.yml
         with:
           azureWebAppName: 'web-SergioApp-${{ inputs.environment }}'
           webAppSourcePath: '.\App-Demo\src\VotingWeb'
+        secrets: inherit
 
   job_deploy_function:
-    runs-on: windows-latest
     environment: ${{ inputs.environment }}
     name: 'Deploy Azure Function'
     needs: 
@@ -80,9 +73,8 @@ jobs:
         with:
           fetch-depth: 0
       - name: 'Deploy Function to Azure Web App Plan'
-        uses: ./.github/actions/deployApp
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+        uses: ./.github/workflows/deploy_App.yml
         with:
           azureWebAppName: 'func-votecounter-SergioApp-${{ inputs.environment }}'
           webAppSourcePath: '.\App-Demo\src\FunctionApp'
+        secrets: inherit
