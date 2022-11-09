@@ -9,18 +9,17 @@ inputs:
 runs:
   using: 'composite'
   steps:
-
       # Log into Azure
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ secret.AZURE_CREDENTIALS }} 
+        creds: ${{ secrets.AZURE_CREDENTIALS }} 
 
       # Deploy Bicep file
     - name: deploy
       uses: azure/arm-deploy@v1
       with:
-        subscriptionId: ${{ secret.AZURE_SUBSCRIPTION }}
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ env.resourceGroupName }}
         template: ./IaC-Demo/infra.bicep
         parameters: ${{ inputs.customParameters }}
