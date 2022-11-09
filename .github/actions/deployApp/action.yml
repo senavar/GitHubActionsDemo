@@ -16,16 +16,13 @@ inputs:
     required: false
     default: '.'
 
-  AZURE_CREDENTIALS:
-    required: true 
-
 runs:
   using: 'composite'
   steps:
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: ${{ inputs.AZURE_CREDENTIALS }} 
+        creds: ${{ env.AZURE_CREDENTIALS }} 
     
     # Setup .NET Core SDK
     - name: Setup .NET Core

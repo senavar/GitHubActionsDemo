@@ -22,9 +22,12 @@ jobs:
           fetch-depth: 0
       - name: 'Deploy Bicep File'
         uses: ./.github/actions/deployInfra
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION }}
         with:
           customParameters: 'votingWebAppName=SergioApp env=${{ inputs.environment }}'
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+
 
   job_deploy_webapi:
     runs-on: windows-latest
@@ -39,10 +42,12 @@ jobs:
           fetch-depth: 0
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
         with:
           azureWebAppName: 'web-votingapi-SergioApp-${{ inputs.environment }}'
           webAppSourcePath: '.\App-Demo\src\VotingData'
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+
 
 
   job_deploy_webapp:
@@ -58,12 +63,11 @@ jobs:
           fetch-depth: 0
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
         with:
           azureWebAppName: 'web-SergioApp-${{ inputs.environment }}'
           webAppSourcePath: '.\App-Demo\src\VotingWeb'
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-          AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION }}
-
 
   job_deploy_function:
     runs-on: windows-latest
@@ -78,9 +82,8 @@ jobs:
           fetch-depth: 0
       - name: 'Deploy Function to Azure Web App Plan'
         uses: ./.github/actions/deployApp
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
         with:
           azureWebAppName: 'func-votecounter-SergioApp-${{ inputs.environment }}'
           webAppSourcePath: '.\App-Demo\src\FunctionApp'
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-          AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION }}
-
