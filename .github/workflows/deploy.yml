@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        target: [dev, stage, prod]
+        target: [Dev, Stage, Prod]
     uses: ./.github/workflows/workflow.yml
     with:
       environment: ${{ matrix.target }}
