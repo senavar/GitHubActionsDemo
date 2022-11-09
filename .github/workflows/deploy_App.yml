@@ -6,9 +6,11 @@ on:
       azureWebAppName:
         required: true
         type: string
+      
       webAppSourcePath:
         required: true
         type: string
+      
       environment:
         required: true
         type: string

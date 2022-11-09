@@ -6,6 +6,7 @@ on:
       customParameters:
         required: true
         type: string
+      
       environment:
         required: true
         type: string
