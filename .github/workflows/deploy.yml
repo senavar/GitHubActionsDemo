@@ -10,9 +10,10 @@ on:
 
 jobs:
   ReuseableMatrixJobForDeployment:
+    runs-on: windows-latest
+    continue-on-error: false
     strategy:
       max-parallel: 1
-      continue-on-error: false
       matrix:
         target: [dev, stage, prod]
     environment: ${{ matrix.target }}
