@@ -1,4 +1,4 @@
-name:  'Reusable workflow to deploy to ${{ inputs.environment }}'
+name:  'Reusable workflow to deploy'
 
 on: 
   workflow_call:
@@ -16,11 +16,10 @@ jobs:
     environment: ${{ inputs.environment }}
     name: 'Deploy Azure Infrastructure'
     steps: 
-          fetch-depth: 0
       - name: 'Deploy Bicep File'
         uses: ./.github/actions/deployInfra
         with:
-          customParameters: 'votingWebAppName=SergioApp, env=${{ inputs.environment }}'
+          customParameters: 'votingWebAppName=SergioApp env=${{ inputs.environment }}'
 
   job_deploy_webapi:
     runs-on: windows-latest
