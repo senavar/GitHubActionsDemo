@@ -61,6 +61,7 @@ jobs:
         with:
           azureWebAppName: 'web-SergioApp-${{ inputs.environment }}'
           webAppSourcePath: '.\App-Demo\src\VotingWeb'
+        secrets: inherit
 
   job_deploy_function:
     runs-on: windows-latest
