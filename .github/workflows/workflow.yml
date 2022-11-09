@@ -24,6 +24,7 @@ jobs:
         uses: ./.github/actions/deployInfra
         with:
           customParameters: 'votingWebAppName=SergioApp env=${{ inputs.environment }}'
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
 
   job_deploy_webapi:
     runs-on: windows-latest
@@ -41,6 +42,8 @@ jobs:
         with:
           azureWebAppName: 'web-votingapi-SergioApp-${{ inputs.environment }}'
           webAppSourcePath: '.\App-Demo\src\VotingData'
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+
 
   job_deploy_webapp:
     runs-on: windows-latest
@@ -58,6 +61,9 @@ jobs:
         with:
           azureWebAppName: 'web-SergioApp-${{ inputs.environment }}'
           webAppSourcePath: '.\App-Demo\src\VotingWeb'
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION }}
+
 
   job_deploy_function:
     runs-on: windows-latest
@@ -75,3 +81,6 @@ jobs:
         with:
           azureWebAppName: 'func-votecounter-SergioApp-${{ inputs.environment }}'
           webAppSourcePath: '.\App-Demo\src\FunctionApp'
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION }}
+
