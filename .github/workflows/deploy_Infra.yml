@@ -6,11 +6,15 @@ on:
       customParameters:
         required: true
         type: string
+      environment:
+      required: true
+      type: string
 
 jobs:
 
   job_deploy_infra:
     runs-on: windows-latest
+    environment: ${{ inputs.environment }}
     name: 'Deploy Infra'
     steps: 
       - name: 'Checkout'

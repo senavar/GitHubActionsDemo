@@ -9,6 +9,10 @@ on:
       webAppSourcePath:
         required: true
         type: string
+      environment:
+      required: true
+      type: string
+
       
 env:
   resourceGroupName: 'GitHubTestRG'
