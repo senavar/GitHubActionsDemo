@@ -13,7 +13,7 @@ env:
 jobs:
   job_deploy_infrastructure:
     runs-on: windows-latest
-    environment: ${{ inputs.environment }}
+    environment: Dev
     name: 'Deploy Azure Infrastructure'
     steps: 
       - name: 'Checkout'
