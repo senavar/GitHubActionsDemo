@@ -14,19 +14,19 @@ runs:
     - name: Output Secret
       shell: bash
       run: |
-        echo $AZURE_CREDENTIALS
+        echo "${{ env.AZURE_CREDENTIALS }}"
     
     
     - name: Azure login
       uses: azure/login@v1
       with:
-        creds: $AZURE_CREDENTIALS
+        creds: ${{ env.AZURE_CREDENTIALS }} 
 
       # Deploy Bicep file
     - name: deploy
       uses: azure/arm-deploy@v1
       with:
-        subscriptionId: $AZURE_SUBSCRIPTION
+        subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ env.resourceGroupName }}
         template: ./IaC-Demo/infra.bicep
         parameters: ${{ inputs.customParameters }}
