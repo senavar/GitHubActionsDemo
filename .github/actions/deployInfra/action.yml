@@ -10,11 +10,6 @@ runs:
   using: 'composite'
   steps:
 
-    - name: 'Checkout'
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-
       # Log into Azure
     - name: Azure login
       uses: azure/login@v1

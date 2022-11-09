@@ -16,6 +16,10 @@ jobs:
     environment: ${{ inputs.environment }}
     name: 'Deploy Azure Infrastructure'
     steps: 
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: 'Deploy Bicep File'
         uses: ./.github/actions/deployInfra
         with:
@@ -28,6 +32,10 @@ jobs:
     needs: 
       - job_deploy_infrastructure
     steps: 
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
         with:
@@ -41,6 +49,10 @@ jobs:
     needs: 
       - job_deploy_infrastructure
     steps: 
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: 'Deploy to Azure Web App'
         uses: ./.github/actions/deployApp
         with:
@@ -54,6 +66,10 @@ jobs:
     needs: 
       - job_deploy_infrastructure
     steps: 
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: 'Deploy Function to Azure Web App Plan'
         uses: ./.github/actions/deployApp
         with:
