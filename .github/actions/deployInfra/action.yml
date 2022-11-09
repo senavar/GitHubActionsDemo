@@ -10,6 +10,13 @@ runs:
   using: 'composite'
   steps:
       # Log into Azure
+    
+    - name: Output Secret
+      shell: bash
+      run: |
+        echo "${{ env.AZURE_CREDENTIALS }}"
+    
+    
     - name: Azure login
       uses: azure/login@v1
       with:
