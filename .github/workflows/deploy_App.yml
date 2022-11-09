@@ -21,8 +21,6 @@ jobs:
     runs-on: windows-latest
     environment: ${{ inputs.environment }}
     name: 'Deploy Web Api'
-    needs: 
-      - job_deploy_infrastructure
     steps: 
       - name: 'Checkout'
         uses: actions/checkout@v2
