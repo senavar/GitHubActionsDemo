@@ -3,6 +3,7 @@ param votingWebAppName string = 'NavarApp'
 param location string = resourceGroup().location
 @allowed([
   'dev'
+  'stage'
   'prod'
 ])
 param env string = 'dev'

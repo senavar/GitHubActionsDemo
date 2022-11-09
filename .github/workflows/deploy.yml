@@ -1,0 +1,22 @@
+name: Deploy
+
+on: 
+  push:
+    branches:
+      - main
+    paths:
+      - 'App-Demo/**'
+  workflow_dispatch:
+
+jobs:
+  ReuseableMatrixJobForDeployment:
+    strategy:
+      max-parallel: 1
+      continue-on-error: false
+      matrix:
+        target: [dev, stage, prod]
+    environment: ${{ matrix.target }}
+    uses: ./.github/workflows/workflow.yml
+    with:
+      environment: ${{ matrix.target }}
+
