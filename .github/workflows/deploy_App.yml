@@ -10,8 +10,8 @@ on:
         required: true
         type: string
       environment:
-      required: true
-      type: string
+        required: true
+        type: string
 
 jobs:
 

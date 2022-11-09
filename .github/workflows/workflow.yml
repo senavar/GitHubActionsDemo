@@ -6,6 +6,7 @@ on:
       environment:
         required: true
         type: string
+        
 env:
   resourceGroupName: 'GitHubTestRG'
   dotNetVersion: '3.1.x'
