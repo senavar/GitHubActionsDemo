@@ -14,7 +14,6 @@ on:
 jobs:
   job_deploy_infra:
     runs-on: windows-latest
-    environment: Dev
     name: 'Deploy Infra'
     steps: 
       - name: 'Checkout'
