@@ -14,6 +14,7 @@ on:
 jobs:
   job_deploy_infra:
     runs-on: windows-latest
+    environment: ${{ inputs.environment }}
     name: 'Deploy Infra'
     steps: 
       - name: 'Checkout'
