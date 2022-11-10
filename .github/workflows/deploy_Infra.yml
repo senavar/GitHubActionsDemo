@@ -14,6 +14,7 @@ on:
 jobs:
   job_deploy_infra:
     runs-on: windows-latest
+    environment: ${{ inputs.environment }}
     name: 'Deploy Infra'
     steps: 
       - name: 'Checkout'
@@ -22,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: Azure login
-        uses: azure/login@v1
+        uses: azure/actions/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }} 
 
