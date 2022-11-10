@@ -36,7 +36,7 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-          resourceGroupName: ${{ env.resourceGroupName }}
+          resourceGroupName: ${{ inputs.resourceGroupName }}
           template: ./IaC-Demo/infra.bicep
           parameters: ${{ inputs.customParameters }}
           failOnStdErr: false
