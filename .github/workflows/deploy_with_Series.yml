@@ -17,12 +17,16 @@ jobs:
 
   DeployStage:
     uses: ./.github/workflows/deploy_workflow.yml
+    needs: 
+      - DeployDev
     with:
       environment: 'Stage'
     secrets: inherit
 
   DeployProd:
     uses: ./.github/workflows/deploy_workflow.yml
+    needs: 
+      - DeployStage
     with:
       environment: 'Prod'
     secrets: inherit
