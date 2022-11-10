@@ -2,11 +2,11 @@
 param votingWebAppName string = 'NavarApp'
 param location string = resourceGroup().location
 @allowed([
-  'dev'
-  'stage'
-  'prod'
+  'Dev'
+  'Stage'
+  'Prod'
 ])
-param env string = 'dev'
+param env string = 'Dev'
 
 var votingApi_Name = 'web-votingapi-${votingWebAppName}-${env}'
 var votingWeb_Name = 'web-${votingWebAppName}-${env}'
