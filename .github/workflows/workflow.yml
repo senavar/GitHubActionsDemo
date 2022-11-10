@@ -7,17 +7,13 @@ on:
         required: true
         type: string
 
-env:
-  resourceGroupName: 'GitHubTestRG'
-  dotNetVersion: '3.1.x'
-
 jobs:
   job_deploy_infrastructure:
     uses: ./.github/workflows/deploy_Infra.yml
     with:
       customParameters: 'votingWebAppName=SergioApp env=${{ inputs.environment }}'
       environment: ${{ inputs.environment }}
-      resourceGroupName: ${{ env.resourceGroupName }}
+      resourceGroupName: 'GitHubTestRG'
     secrets: inherit
 
   job_deploy_webapi:
@@ -28,7 +24,7 @@ jobs:
       azureWebAppName: 'web-votingapi-SergioApp-${{ inputs.environment }}'
       webAppSourcePath: '.\App-Demo\src\VotingData'
       environment: ${{ inputs.environment }}
-      dotNetVersion: ${{ env.dotNetVersion }}
+      dotNetVersion: '3.1.x'
     secrets: inherit
 
   job_deploy_webapp:
@@ -39,7 +35,7 @@ jobs:
       azureWebAppName: 'web-SergioApp-${{ inputs.environment }}'
       webAppSourcePath: '.\App-Demo\src\VotingWeb'
       environment: ${{ inputs.environment }}
-      dotNetVersion: ${{ env.dotNetVersion }}
+      dotNetVersion: '3.1.x'
     secrets: inherit
 
 
@@ -51,6 +47,6 @@ jobs:
       azureWebAppName: 'func-votecounter-SergioApp-${{ inputs.environment }}'
       webAppSourcePath: '.\App-Demo\src\FunctionApp'
       environment: ${{ inputs.environment }}
-      dotNetVersion: ${{ env.dotNetVersion }}
+      dotNetVersion: '3.1.x'
     secrets: inherit
 
