@@ -7,38 +7,39 @@ on:
         required: true
         type: string
 
+env:
+  resourceGroupName: 'GitHubTestRG'
+  dotNetVersion: '3.1.x'
+
 jobs:
   job_deploy_infrastructure:
     uses: ./.github/workflows/deploy_Infra.yml
-    env:
-      resourceGroupName: 'GitHubTestRG'
     with:
       customParameters: 'votingWebAppName=SergioApp env=${{ inputs.environment }}'
       environment: ${{ inputs.environment }}
+      resourceGroupName: ${{ env.resourceGroupName }}
     secrets: inherit
 
   job_deploy_webapi:
     needs: 
       - job_deploy_infrastructure
     uses: ./.github/workflows/deploy_App.yml
-    env:
-      dotNetVersion: '3.1.x'
     with:
       azureWebAppName: 'web-votingapi-SergioApp-${{ inputs.environment }}'
       webAppSourcePath: '.\App-Demo\src\VotingData'
       environment: ${{ inputs.environment }}
+      dotNetVersion: ${{ env.dotNetVersion }}
     secrets: inherit
 
   job_deploy_webapp:
     needs: 
       - job_deploy_infrastructure
     uses: ./.github/workflows/deploy_App.yml
-    env:
-      dotNetVersion: '3.1.x'
     with:
       azureWebAppName: 'web-SergioApp-${{ inputs.environment }}'
       webAppSourcePath: '.\App-Demo\src\VotingWeb'
       environment: ${{ inputs.environment }}
+      dotNetVersion: ${{ env.dotNetVersion }}
     secrets: inherit
 
 
@@ -46,11 +47,10 @@ jobs:
     needs: 
       - job_deploy_infrastructure
     uses: ./.github/workflows/deploy_App.yml
-    env:
-      dotNetVersion: '3.1.x'
     with:
       azureWebAppName: 'func-votecounter-SergioApp-${{ inputs.environment }}'
       webAppSourcePath: '.\App-Demo\src\FunctionApp'
       environment: ${{ inputs.environment }}
+      dotNetVersion: ${{ env.dotNetVersion }}
     secrets: inherit
 

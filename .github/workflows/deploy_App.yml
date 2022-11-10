@@ -15,6 +15,9 @@ on:
         required: true
         type: string
 
+      dotNetVersion:
+        required: true
+        type: string
 jobs:
 
   job_deploy_webapi:
@@ -30,13 +33,13 @@ jobs:
       - name: Azure login
         uses: azure/login@v1
         with:
-          creds: ${{ env.AZURE_CREDENTIALS }} 
+          creds: ${{ secrets.AZURE_CREDENTIALS }} 
     
       # Setup .NET Core SDK
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: ${{ env.dotNetVersion }} 
+          dotnet-version: ${{ inputs.dotNetVersion }} 
       
       # Run dotnet build and publish
       - name: dotnet build and publish
