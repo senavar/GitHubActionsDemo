@@ -1,0 +1,29 @@
+name: Deploy with Series
+
+on: 
+  push:
+    branches:
+      - main
+    paths:
+      - 'App-Demo/**'
+  workflow_dispatch:
+
+jobs:
+  DeployDev:
+    uses: ./.github/workflows/deploy_workflow.yml
+    with:
+      environment: 'Dev'
+    secrets: inherit
+
+  DeployStage:
+    uses: ./.github/workflows/deploy_workflow.yml
+    with:
+      environment: 'Stage'
+    secrets: inherit
+
+  DeployProd:
+    uses: ./.github/workflows/deploy_workflow.yml
+    with:
+      environment: 'Prod'
+    secrets: inherit
+  
